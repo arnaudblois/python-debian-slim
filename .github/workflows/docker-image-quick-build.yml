@@ -1,0 +1,33 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  OPENSSL_VERSION: 3.4.1
+  QUICK_BUILD: true
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        python_version: ["3.11.11", "3.12.9", "3.13.2"]
+        arch: ["amd64", "arm64"]
+    runs-on: ${{ matrix.arch == 'amd64' && 'ubuntu-latest' || 'ubuntu-24.04-arm' }}
+    env:
+      PYTHON_VERSION: ${{ matrix.python_version }}
+      ARCH: ${{ matrix.arch }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build the Docker image
+        run: bash src/build_image.sh
+      - name: Test the image
+        run: bash src/test_image.sh
