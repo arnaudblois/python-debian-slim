@@ -6,8 +6,8 @@ RUN apt-get update && apt-get dist-upgrade -y && \
 
 # Build Dependencies
 FROM base AS build-deps
-ARG OPENSSL_VERSION="3.4.1"
-ARG PY_VERSION="3.13.2"
+ARG OPENSSL_VERSION="3.6.0"
+ARG PY_VERSION="3.14.2"
 ARG QUICK_BUILD="true"
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -66,7 +66,7 @@ RUN find /usr/local -depth \( \
   /usr/local/ssl/lib64/libssl.a 
 # **Compress binaries with UPX (optional, saves ~10MB)**
 # Download UPX manually (replace version if needed)
-RUN wget -qO /tmp/upx.tar.xz https://github.com/upx/upx/releases/download/v5.0.0/upx-5.0.0-amd64_linux.tar.xz && \
+RUN wget -qO /tmp/upx.tar.xz https://github.com/upx/upx/releases/download/v5.0.2/upx-5.0.2-amd64_linux.tar.xz && \
   tar -xJf /tmp/upx.tar.xz --strip-components=1 -C /usr/local/bin/ upx-5.0.0-amd64_linux/upx && \
   chmod +x /usr/local/bin/upx && \
   upx --best --lzma /usr/local/bin/python${PY_VERSION%.*} || true && \
@@ -74,7 +74,7 @@ RUN wget -qO /tmp/upx.tar.xz https://github.com/upx/upx/releases/download/v5.0.0
 
 # Final Runtime Image
 FROM base AS final
-ARG PY_VERSION="3.13.2"
+ARG PY_VERSION="3.14.2"
 ARG CREATION_COMMIT_SHA
 RUN  apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   bzip2 ca-certificates curl libffi8 libgdbm6 liblzma5 libncurses6 libnss3 sqlite3 wget zlib1g \
