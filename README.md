@@ -9,13 +9,13 @@ The images can be accessed using `docker pull <image name>`.
 
 | Python  | Image name                           |
 | ------- | ------------------------------------ |
-| 3.11.11 | ursamajorlab/debian-slim-python:3.11 |
-| 3.12.8  | ursamajorlab/debian-slim-python:3.12 |
-| 3.13.2  | ursamajorlab/debian-slim-python:3.13 |
+| 3.13.11 | ursamajorlab/debian-slim-python:3.13 |
+| 3.14.2  | ursamajorlab/debian-slim-python:3.14 |
+| 3.13.2  | ursamajorlab/debian-slim-python:3.15 |
 
 The images are also accessible by using the major.minor.revision tag
 `ursamajorlab/debian-slim-python:<full-python-version>`,
-e.g. ursamajorlab/debian-slim-python:3.12.7
+e.g. ursamajorlab/debian-slim-python:3.14.2
 
 # Rationale
 
