@@ -5,13 +5,13 @@ on:
     branches: [main]
 
 env:
-  OPENSSL_VERSION: 3.6.0
+  OPENSSL_VERSION: 3.6.1
 
 jobs:
   build:
     strategy:
       matrix:
-        python_version: ["3.13.11", "3.14.2", "3.15.0a3"]
+        python_version: ["3.13.12", "3.14.3", "3.15.0a5"]
         arch: ["amd64", "arm64"]
     runs-on: ${{ matrix.arch == 'amd64' && 'ubuntu-latest' || 'ubuntu-24.04-arm' }}
     env:
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python_version: ["3.13.11", "3.14.2", "3.15.0a3"]
+        python_version: ["3.13.12", "3.14.3", "3.15.0a5"]
     env:
       PYTHON_VERSION: ${{ matrix.python_version }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}

@@ -1,13 +1,13 @@
 # Base Image
-FROM debian:bookworm-slim AS base
+FROM debian:trixie-slim AS base
 RUN apt-get update && apt-get dist-upgrade -y && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata && \
   rm -rf /var/lib/apt/lists/*
 
 # Build Dependencies
 FROM base AS build-deps
-ARG OPENSSL_VERSION="3.6.0"
-ARG PY_VERSION="3.14.2"
+ARG OPENSSL_VERSION="3.6.1"
+ARG PY_VERSION="3.14.3"
 ARG QUICK_BUILD="true"
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -74,7 +74,7 @@ RUN wget -qO /tmp/upx.tar.xz https://github.com/upx/upx/releases/download/v5.0.2
 
 # Final Runtime Image
 FROM base AS final
-ARG PY_VERSION="3.14.2"
+ARG PY_VERSION="3.14.3"
 ARG CREATION_COMMIT_SHA
 RUN  apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   bzip2 ca-certificates curl libffi8 libgdbm6 liblzma5 libncurses6 libnss3 sqlite3 wget zlib1g \
